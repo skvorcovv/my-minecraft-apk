@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Mobile Minecraft Clone</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #87CEEB; touch-action: none; font-family: sans-serif; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        #crosshair {
+            position: absolute; top: 50%; left: 50%;
+            width: 20px; height: 20px;
+            margin-top: -10px; margin-left: -10px;
+            pointer-events: none; z-index: 100;
+        }
+        #crosshair::before, #crosshair::after {
+            content: ''; position: absolute; background: rgba(255, 255, 255, 0.8);
+        }
+        #crosshair::before { top: 9px; left: 0; width: 20px; height: 2px; }
+        #crosshair::after { top: 0; left: 9px; width: 2px; height: 20px; }
+
+        /* Mobile Controls */
+        #controls-zone {
+            position: absolute; bottom: 30px; left: 30px;
+            width: 120px; height: 120px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+        }
+        #stick {
+            width: 50px; height: 50px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: absolute;
+        }
+        #action-buttons {
+            position: absolute; bottom: 30px; right: 30px;
+            display: flex; gap: 15px; z-index: 100;
+        }
+        .btn {
+            width: 60px; height: 60px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 2px solid white;
+            border-radius: 50%; color: white;
+            font-weight: bold; font-size: 14px;
+            display: flex; justify-content: center; align-items: center;
+            user-select: none;
+        }
+        .btn:active { background: rgba(255, 255, 255, 0.8); color: black; }
+
+        #inventory {
+            position: absolute; top: 10px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 5px; z-index: 100;
+            background: rgba(0,0,0,0.5); padding: 5px;
+            border-radius: 5px;
+        }
+        .slot {
+            width: 40px; height: 40px;
+            border: 2px solid #555;
+            background-size: cover;
+        }
+        .slot.active { border-color: yellow; }
+    </style>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+</head>
+<body>
+    <div id="crosshair"></div>
+
+    <div id="inventory">
+        <div class="slot active" style="background-color: #3b8526;" data-type="grass"></div>
+        <div class="slot" style="background-color: #555555;" data-type="stone"></div>
+        <div class="slot" style="background-color: #7b5e43;" data-type="dirt"></div>
+        <div class="slot" style="background-color: #8b6b4a;" data-type="wood"></div>
+    </div>
+
+    <div id="controls-zone">
+        <div id="stick"></div>
+    </div>
+
+    <div id="action-buttons">
+        <div class="btn" id="btn-jump">JUMP</div>
+        <div class="btn" id="btn-build">BUILD</div>
+        <div class="btn" id="btn-break">BREAK</div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
